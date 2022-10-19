@@ -1,0 +1,36 @@
+{
+    "cvpr": [
+        {
+            "year": 2022,
+            "url": "https://cvpr2022.thecvf.com/posters-621-am"
+        },
+        {
+            "year": 2021,
+            "url": "https://cvpr2021.thecvf.com/node/179"
+        },
+        {
+            "year": 2020,
+            "url": "https://cvpr2020.thecvf.com/program/main-conference"
+        },
+        {
+            "year": 2019,
+            "url": "https://cvpr2019.thecvf.com/program/main_conference"
+        },
+        {
+            "year": 2018,
+            "url": "https://dblp.org/db/conf/cvpr/cvpr2018.html"
+        },
+        {
+            "year": 2017,
+            "url": "https://cvpr2017.thecvf.com/program/main_conference#program_schedule"
+        },
+        {
+            "year": 2016,
+            "url": "https://cvpr2016.thecvf.com/program/main_conference"
+        },
+        {
+            "year": 2015,
+            "url": "https://cvpr2015.thecvf.com/program.php"
+        }
+    ]
+}
