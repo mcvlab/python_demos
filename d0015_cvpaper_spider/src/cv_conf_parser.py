@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+from urllib.parse import urlparse
 import utils
 
 
@@ -17,3 +18,8 @@ class CVConfParser:
         html_str = utils.download_html(html_url)
         # 解析dom结构
         self.dom = utils.parse_dom(html_str)
+        # 获取网站域名地址
+        res = urlparse(html_url)
+        proto_head = "https" if res.scheme == "" else res.scheme
+        self.root_url = proto_head + "://" + res.netloc
+        self.url = html_url
