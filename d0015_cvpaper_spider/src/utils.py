@@ -20,6 +20,7 @@ def download_html(html_url):
         return html_str
     # 下载
     try:
+        logger.info("downloading {} from web ...".format(html_url))
         # 发起请求
         response = requests.get(html_url)
         html_str = response.text
