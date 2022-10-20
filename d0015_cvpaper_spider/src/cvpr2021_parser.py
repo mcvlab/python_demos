@@ -47,7 +47,7 @@ class CVPRParser(CVConfParser):
                     "title": title,
                     "authors": [
                         " ".join(author.strip().split())
-                        for author in authors.split(";")
+                        for author in authors.split(",")
                     ],
                 }
             )

@@ -30,14 +30,18 @@ def download_html(html_url):
         with open(cache_file, "w") as fid:
             fid.write(html_str)
     except requests.RequestException:
-        logger.warning("fail to request url: {}".format(html_url))
-        html_str = ""
+        raise ValueError("fail to request url: {}, please retry".format(html_url))
     return html_str
 
 
 def parse_dom(html_str):
     """将html字符串解析为dom结构"""
     return bs4.BeautifulSoup(html_str, "html.parser")
+
+
+def strip_html_text(html_text):
+    text = html_text.replace("\n", " ")
+    return " ".join(text.strip().split())
 
 
 def load_cvconf_url(year, conf_name="cvpr", config_file="config/url.json"):
