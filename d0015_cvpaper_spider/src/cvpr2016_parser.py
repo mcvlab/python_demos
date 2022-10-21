@@ -2,7 +2,7 @@
 
 from ctypes import util
 import json
-
+import re
 import utils
 from loguru import logger
 from cv_conf_parser import CVConfParser
@@ -11,6 +11,11 @@ from cv_conf_parser import CVConfParser
 class CVPRParser(CVConfParser):
     def __init__(self) -> None:
         super().__init__("cvpr", 2016)
+        logger.info("origin html contains special characters, load again and process")
+        html_str = utils.download_html(self.url)
+        p = re.compile(r"&#\d*")
+        html_str = p.sub("_XoX_", html_str)
+        self.dom = utils.parse_dom(html_str)
 
     def _parse_session(self, tag, paper_type):
         papers = []
@@ -61,7 +66,7 @@ class CVPRParser(CVConfParser):
     def parse_pages(self):
         """bs4似乎解析html存在问题"""
         all_headers = self.dom.select("h3.programheader")
-        print(len(all_headers))
+        # print(len(all_headers))
         all_papers = []
         for header in all_headers:
             h3 = header
@@ -69,7 +74,7 @@ class CVPRParser(CVConfParser):
             paper_type = paper_type.strip().lower()
             tag = header.find_next_sibling()
             papers = self._parse_session(tag, paper_type)
-            print("number:", len(papers))
+            # print("number:", len(papers))
             # for paper in papers:
             all_papers.extend(papers)
         return all_papers

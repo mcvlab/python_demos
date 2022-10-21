@@ -14,6 +14,7 @@ class CVPRParser(CVConfParser):
     def parse_pages(self):
         time_tag = self.dom.select(".cvprparagraphheader")
         all_papers = []
+        all_orals = []
         for tag in time_tag:
             # 从时间中解析tag
             time_str = utils.strip_html_text(tag.get_text()).split(",")[0]
@@ -62,7 +63,7 @@ class CVPRParser(CVConfParser):
                             continue
                         title = utils.strip_html_text(title_tag[0].get_text())
                         authors = utils.strip_html_text(col.get_text().split("]")[-1])
-                        all_papers.append(
+                        all_orals.append(
                             {
                                 "type": "orals",
                                 "sess_title": "",
@@ -77,6 +78,19 @@ class CVPRParser(CVConfParser):
                         )
             else:
                 raise ValueError("not expect table")
+        # 获取oral文件title
+        oral_set = set()
+        for paper in all_orals:
+            title = paper["title"].lower()
+            title = "".join(title.split())
+            oral_set.add(title)
+        # 重新标记paper type
+        for paper in all_papers:
+            title = paper["title"].lower()
+            title = "".join(title.split())
+            if title in oral_set:
+                logger.info("find oral paper {}".format(paper["title"]))
+                paper["type"] = ("orals",)
         return all_papers
 
 
