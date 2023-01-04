@@ -95,6 +95,8 @@ class CVPRParser(CVConfParser):
                 title = " ".join(title.strip().split())
                 authors = cols[2].get_text().replace("\n", " ").strip()
                 # print(sess_title, poster_id, title, authors)
+                print(utils.strip_html_text(cols[2].get_text()))
+                break
                 all_orals.append(
                     {
                         "type": "orals",
@@ -158,4 +160,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    test_parse_oral_page()
